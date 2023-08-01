@@ -70,7 +70,7 @@ public class GUI_Besucher extends Application {
 			if(buchSuche_input.getText().equals("Suchen"))
 				buchSuche_input.clear();
 		});
-//TODO comentar
+		//Entertaste als trigger für die Suche
 		buchSuche_input.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent arg0) {
@@ -112,7 +112,7 @@ public class GUI_Besucher extends Application {
 				e.consume();
 				return;
 			}
-			//Ansonnst wird nach der Auswahl die Sucher dürchgefürt
+			//Ansonnst wird die Sucher nach dem Auswahl  dürchgefürt
 			else {				
 				if(rb_autor.isSelected()) {
 					buecherSuchen(Buchsuche.AUTOR);

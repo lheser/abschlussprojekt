@@ -1,0 +1,12 @@
+Dear <besucher_name>,
+
+The Library would like to remind you that the return of <buch_titel> was due on the <ausleihe_bis>.
+According to the rules of the library, for each book 0.20 Euros will be charged per day starting from the due return date. 
+
+Please think about bringing the book as soon as possible.
+
+Thanks in advance,
+
+Best regards,
+
+Your Bibliomaster.

@@ -10,6 +10,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -50,6 +55,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import klassen.emailService.EmailSender;
+import klassen.emailService.Penalty;
+import klassen.emailService.Reminder;
 
 
 public class GUI_Mitarbeiter extends Application {
@@ -70,7 +78,7 @@ public class GUI_Mitarbeiter extends Application {
 	private ObservableList<Thema> obsListThemen = FXCollections.observableArrayList();	
 	private ObservableList<AusleiheFX> obsListAusleihen  = FXCollections.observableArrayList();
 	private String genericPath = ".\\resources\\titelblatt_unknown.jpg";
-	private long ausleihe_besucher_id = 0;
+	private static long ausleihe_besucher_id = 0;
 
 	private ComboBox<Thema> cbThemen = new ComboBox<>(obsListThemen);	
 	private TextField buchSuche_input = new TextField("Suchen");
@@ -84,7 +92,7 @@ public class GUI_Mitarbeiter extends Application {
 			Datenbank.createThemenTable();
 			Datenbank.createBuecherTable();
 			Datenbank.createBesucherTable();
-			Datenbank.createAusleihenTable();			
+			Datenbank.createAusleihenTable();				
 		} catch(SQLException e) {
 			e.printStackTrace();
 			new Alert(AlertType.ERROR, e.toString()).showAndWait();
@@ -591,12 +599,12 @@ public class GUI_Mitarbeiter extends Application {
 		colAdresse.prefWidthProperty().bind(tvBesucher.widthProperty().divide(tvBesucher.getColumns().size()).add(12));	
 
 		//Style Property für die TableColumns
-		colBesucherid.setStyle( "-fx-alignment: CENTER;");
-		colVorname.setStyle( "-fx-alignment: CENTER;");
-		colNachname.setStyle( "-fx-alignment: CENTER;");
-		colGebdatum.setStyle( "-fx-alignment: CENTER;");
-		colTel.setStyle( "-fx-alignment: CENTER;");
-		colAdresse.setStyle( "-fx-alignment: CENTER;");
+		colBesucherid.setStyle("-fx-alignment: CENTER;");
+		colVorname.setStyle("-fx-alignment: CENTER;");
+		colNachname.setStyle("-fx-alignment: CENTER;");
+		colGebdatum.setStyle("-fx-alignment: CENTER;");
+		colTel.setStyle("-fx-alignment: CENTER;");
+		colAdresse.setStyle("-fx-alignment: CENTER;");
 
 		//Schaltung von Knopfe anhängig von Auswahl in der Tabelle
 		tvBesucher.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<BesucherFX>() {
@@ -605,7 +613,7 @@ public class GUI_Mitarbeiter extends Application {
 				if(arg2 != null) {
 					bearbeitenBesucher.setDisable(false);
 					entfernenBesucher.setDisable(false);
-					System.out.println(arg2.getBesucherId());
+					//System.out.println(arg2.getBesucherId());
 				} else {
 					bearbeitenBesucher.setDisable(true);
 					entfernenBesucher.setDisable(true);					
@@ -710,17 +718,17 @@ public class GUI_Mitarbeiter extends Application {
 		Button statsAnzeigen = new Button("Anzeigen");		
 		statsAnzeigen.setOnAction(e ->{
 			if(filter.getSelectionModel().getSelectedItem().equals("Entlehnte Bücher")) {
-				statistiken(Statistiksuche.ENTLEHNTE);
+				statistikenAnzeigen(Statistiksuche.ENTLEHNTE);
 				e.consume();
 				return;				
 			}
 			if(filter.getSelectionModel().getSelectedItem().equals("Überfällige Bücher")) {
-				statistiken(Statistiksuche.UEBERFAELLIG);
+				statistikenAnzeigen(Statistiksuche.UEBERFAELLIG);
 				e.consume();
 				return;	
 			}
 			if(filter.getSelectionModel().getSelectedItem().equals("Alle Ausleihen")) {
-				statistiken(Statistiksuche.ALLE);
+				statistikenAnzeigen(Statistiksuche.ALLE);
 				e.consume();
 				return;	
 			}			
@@ -818,8 +826,8 @@ public class GUI_Mitarbeiter extends Application {
 		//Bücher, Besucher und Themen aus der Datenbank holen
 		buecherSuchen();
 		besucherSuchen();
-		themenSuchen();
-		
+		themenSuchen();		
+
 		//SetOnMouse Klicked RadioButtons(ISBN, Titel, Autor) versus ComboBox von Themen
 		rb_isbn.setOnMouseClicked(e -> cbThemen.getSelectionModel().select(0));
 		rb_titel.setOnMouseClicked(e -> cbThemen.getSelectionModel().select(0));
@@ -828,11 +836,13 @@ public class GUI_Mitarbeiter extends Application {
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle("Bibliotheksverwaltungssystem");
 		primaryStage.show();
+		
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 
 	//Alle Bücher suchen
 	private void buecherSuchen() {				
@@ -967,7 +977,7 @@ public class GUI_Mitarbeiter extends Application {
 	 * Enlehnte, Überfällige oder Alle
 	 * @param auswahl 
 	 */
-	private void statistiken(Statistiksuche auswahl) {
+	private void statistikenAnzeigen(Statistiksuche auswahl) {
 		switch(auswahl) {
 		case ENTLEHNTE:
 			try {
@@ -1020,25 +1030,6 @@ public class GUI_Mitarbeiter extends Application {
 	}
 
 	/**
-	 * Suche von Besucher nach Besucher ID
-	 * @param id
-	 * @return der Besucher Object einer Ausleihe Object, falls ID gültig ist. 
-	 * Ansonst returns null   
-	 */
-	private Besucher getAusleiheBesucher(long id) {
-		Besucher besucher = null;
-		try {
-			besucher = Datenbank.getSingleBesucher(id);
-			return besucher;
-		} catch (NumberFormatException e1) {			
-			e1.printStackTrace();
-		} catch (SQLException e1) {			
-			e1.printStackTrace();
-		}
-		return null;		
-	}
-
-	/**
 	 * Suche von Titelblatt
 	 * @param bildPath
 	 * @return Image falls der Bildpath gültig ist. Ansonsten returns null
@@ -1068,4 +1059,5 @@ public class GUI_Mitarbeiter extends Application {
 		String formatedDate = date.format(formatter);		
 		return formatedDate;
 	}
+	
 }

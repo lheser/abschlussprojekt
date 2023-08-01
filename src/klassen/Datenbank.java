@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Datenbank {
 	//DataBase Location und URL Verbindung
-	private static final String DB_LOCATION = "";	
+	private static final String DB_LOCATION = "C:\\Users\\Lukas\\Documents\\java\\db\\datenbank_BiblioMaster";	
 	private static final String CONNECTION_URL = "jdbc:derby:" + DB_LOCATION + ";create=true";	
 
 	//TABELLEN: THEMA, BESUCHER, AUSLEIHE
@@ -91,7 +91,7 @@ public class Datenbank {
 			}
 		}
 	}
-	
+
 	//Bücher Table Erstellung
 	public static void createBuecherTable()throws SQLException{
 		Connection conn = null;
@@ -138,7 +138,7 @@ public class Datenbank {
 			}
 		}
 	}
-	
+
 	//Besucher Table Erstellung
 	public static void createBesucherTable() throws SQLException{
 		Connection conn = null;
@@ -180,7 +180,7 @@ public class Datenbank {
 			}
 		}
 	}
-	
+
 	//Ausleihe Table Erstellung
 	public static void createAusleihenTable() throws SQLException{
 		Connection conn = null;
@@ -252,7 +252,7 @@ public class Datenbank {
 			stmt.setString(6, buch.getVerlag());
 			stmt.setDouble(7, buch.getPreis());
 			stmt.setString(8, buch.getBeschreibung());
-			stmt.setString(9, buch.getTitelblatt());//??
+			stmt.setString(9, buch.getTitelblatt());
 			stmt.setBoolean(10, false);
 			stmt.setBoolean(11, false);
 			stmt.executeUpdate();			
@@ -1072,7 +1072,7 @@ public class Datenbank {
 			}
 		}		
 	}
-	
+
 	/**
 	 * Lies alle Ausleihe eines Besuchers wo erledigt = false
 	 * @param besucherID
@@ -1501,4 +1501,41 @@ public class Datenbank {
 		}
 		return alAusleihe;
 	}
+
+	//Post Course experiments
+	public static ArrayList<String> readAutors() throws SQLException{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;	
+		ArrayList<String> autors = new ArrayList<>();
+		String select = "SELECT " + BUCH_AUTOR  + " FROM " + BUCH_TABLE; 
+		try {
+			conn = DriverManager.getConnection(CONNECTION_URL);
+			stmt = conn.prepareStatement(select);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				autors.add(rs.getString(BUCH_AUTOR));
+			}
+			rs.close();
+		}
+		catch(SQLException e){
+			throw e;
+		}
+		finally {
+			try {
+				if(stmt != null) {
+					stmt.close();
+					if(conn != null) {
+						conn.close();
+					}
+				}
+			}
+			catch(SQLException e) {
+				throw e;
+			}
+		}
+		return autors;
+	}
+	
+
 }

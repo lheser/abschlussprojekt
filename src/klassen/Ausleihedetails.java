@@ -2,7 +2,6 @@ package klassen;
 
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Optional;
 

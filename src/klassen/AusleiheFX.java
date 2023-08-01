@@ -1,7 +1,6 @@
 package klassen;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
