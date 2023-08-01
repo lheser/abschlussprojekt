@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Datenbank {
 	//DataBase Location und URL Verbindung
-	private static final String DB_LOCATION = "C:\\Users\\Lukas\\Documents\\java\\db\\datenbank_BiblioMaster";	
+	private static final String DB_LOCATION = "";	
 	private static final String CONNECTION_URL = "jdbc:derby:" + DB_LOCATION + ";create=true";	
 
 	//TABELLEN: THEMA, BESUCHER, AUSLEIHE
