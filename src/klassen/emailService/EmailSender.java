@@ -13,8 +13,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 	
-	private static String emailFrom = "tomasasturia@gmail.com";
-	private static String password = "rdxbodrvboxgz";
+	private static String emailFrom = "";
+	private static String password = "";
 	
 	
 	public static void sendEmail(Notification notification){
