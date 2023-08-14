@@ -1,7 +1,5 @@
 package klassen.emailService;
 
-import klassen.Ausleihe;
-
 /**
  * 
  * @author Lucas Henao

@@ -55,7 +55,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import klassen.emailService.EmailSender;
 import klassen.emailService.Penalty;
 import klassen.emailService.Reminder;
 

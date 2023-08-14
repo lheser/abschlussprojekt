@@ -2,8 +2,10 @@ package klassen.emailService;
 
 public class Reminder extends Notification {
 		
-	public Reminder(String messageDescription, String messageTypeLocation) {
+	public Reminder() {
 		super("reminder" ,".//.//messageTypes//reminder.txt");
 	}
+	
+	
 
 }

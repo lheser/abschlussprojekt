@@ -6,7 +6,7 @@ package klassen.emailService;
 
 public class Penalty extends Notification {
 
-	public Penalty(String messageDescription, String messageTypeLocation) {
+	public Penalty() {
 		super("penalty", ".//.//messageTypes//penalty.txt");
 	}
 }

@@ -9,9 +9,11 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import klassen.config.DatenbankConfiguration;
+
 public class Datenbank {
 	//DataBase Location und URL Verbindung
-	private static final String DB_LOCATION = "C:\\Users\\Lukas\\Documents\\java\\db\\datenbank_BiblioMaster";	
+	private static final String DB_LOCATION = DatenbankConfiguration.getLocation();	
 	private static final String CONNECTION_URL = "jdbc:derby:" + DB_LOCATION + ";create=true";	
 
 	//TABELLEN: THEMA, BESUCHER, AUSLEIHE

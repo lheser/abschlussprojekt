@@ -16,25 +16,23 @@ public class NotificationSystem {
 		getAusleihenLaufenBald();
 		getAusleihenUeberfaellig();
 	}
-	
-	public void sendNotifications() {		
-		if(!ueberfaelligeAusleihen.isEmpty()) {
-			EmailWriterUtility.writeVerspaetungMeldungfürJeBesucher(ueberfaelligeAusleihen);
-		}
-	}
 
-	private void getAusleihenLaufenBald() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private List<Ausleihe> getAusleihenUeberfaellig() {
+	private void getAusleihenUeberfaellig() {
 		try {
 			ueberfaelligeAusleihen = Datenbank.readUeberfaellige();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return ueberfaelligeAusleihen;		
 	}
+	
 
+	private void getAusleihenLaufenBald() {
+		
+	}
+	
+	public void sendNotifications() {		
+		if(!ueberfaelligeAusleihen.isEmpty()) {
+			EmailService.writeVerspaetungMeldungfürJeBesucher(ueberfaelligeAusleihen);
+		}
+	}
 }

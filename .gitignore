@@ -1,1 +1,3 @@
 *.log
+config/
+src/klassen/emailService/MessagingTest.java

@@ -21,9 +21,9 @@ public class MessagingTest {
 		besucher.setVorname("Lucas");
 		besucher.setEmail("tomasasturia@gmail.com");
 		Ausleihe ausleihe = new Ausleihe(0, LocalDate.now(), LocalDate.now().plusDays(3), buch, besucher, null, false);
-		Penalty penalty = new Penalty(null, null);
-		Reminder reminder = new Reminder(null, null);
-		//System.out.println(MessageWriterUtility.buildEmailBody(reminder));
+		Penalty penalty = new Penalty();
+		Reminder reminder = new Reminder();
+		//System.out.println(MessageWriterUtility.buildEmailBody(reminder)));
 		
 		
 		System.out.println("Simple Email Start");
@@ -46,7 +46,7 @@ public class MessagingTest {
 		
 		Session session = Session.getInstance(props, authenticator);
 		//EmailSender.sendEmail(session, reminder);
-		EmailSender.sendEmail(reminder);
+		EmailService.sendEmail(reminder);
 		
 	}
 }
