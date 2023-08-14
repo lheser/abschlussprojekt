@@ -18,8 +18,8 @@ public class MessagingTest {
 		Buch buch = new Buch();
 		buch.setTitel("Against the Day by Thomas Pinchon");
 		Besucher besucher = new Besucher();
-		besucher.setVorname("Lucas");
-		besucher.setEmail("tomasasturia@gmail.com");
+		besucher.setVorname("");
+		besucher.setEmail("");
 		Ausleihe ausleihe = new Ausleihe(0, LocalDate.now(), LocalDate.now().plusDays(3), buch, besucher, null, false);
 		Penalty penalty = new Penalty();
 		Reminder reminder = new Reminder();
@@ -27,8 +27,8 @@ public class MessagingTest {
 		
 		
 		System.out.println("Simple Email Start");
-		//andreas.joi@hotmail.com
-		String emailFrom = "tomasasturia@gmail.com";
+		
+		String emailFrom = "";
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", "smtp.gmail.com");    
@@ -40,7 +40,7 @@ public class MessagingTest {
 
 		Authenticator authenticator = new javax.mail.Authenticator() {  
 			protected PasswordAuthentication getPasswordAuthentication() {  
-				return new PasswordAuthentication(emailFrom,"rdxbodrvboxgz");  
+				return new PasswordAuthentication(emailFrom,"");  
 			}
 		};
 		

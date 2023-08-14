@@ -13,8 +13,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 	
-	private static String emailFrom = "tomasasturia@gmail.com";
-	private static String password = "rdxbodrvboxgz";
+	private static String emailFrom = "";
+	private static String password = "";
 	
 	
 	public static void sendEmail(Notification notification){
@@ -29,7 +29,7 @@ public class EmailSender {
 	      message.addHeader("Content-type", "text/HTML; charset=UTF-8");
 	      message.addHeader("format", "flowed");
 	      message.addHeader("Content-Transfer-Encoding", "8bit");	   
-	      message.setFrom(new InternetAddress("tomasasturia@gmail.com"));	   
+	      message.setFrom(new InternetAddress(""));	   
 	      
 	      String recipient = EmailWriterUtility.getRecipient(notification);
 	      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient, false));
