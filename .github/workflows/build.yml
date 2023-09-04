@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       # Runs a single command using the runners shell
-      - name: build the app
+      - name: build gui mitarbeiter
         shell: bash
         working-directory: ${{github.workspace}}
         run: javac src/klassen/GUI_Mitarbeiter.java
