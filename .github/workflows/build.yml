@@ -26,4 +26,4 @@ jobs:
       - name: build gui mitarbeiter
         shell: bash
         working-directory: ${{github.workspace}}
-        run: javac src/klassen/GUI_Mitarbeiter.java
+        run: javac -cp "src/libs/*" src/klassen/*.java
