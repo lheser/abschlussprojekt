@@ -35,5 +35,5 @@ jobs:
       - name: build gui mitarbeiter
         shell: bash        
         working-directory: ${{github.workspace}}
-        run: javac -cp "src/libs/*" src/klassen/*.java
+        run: javac -cp "src/libs/*" -d builds src/klassen/*.java
         
