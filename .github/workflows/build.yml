@@ -37,7 +37,7 @@ jobs:
         working-directory: ${{github.workspace}}
         run: javac -cp "src/libs/*" -d builds src/klassen/*.java
 
-      - name: Upload Compliled Classes (or whatever name you like)
+      - name: Upload Compliled Classes
         uses: actions/upload-artifact@v3
         with:
           name: my-application
