@@ -42,4 +42,31 @@ jobs:
         with:
           name: my-application
           path: ./builds/klassen/*.class
-        
+       #note to self: until here, all good. 
+       
+  run-app:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # Sets up the java version
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+          
+      - name: Download application from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: my-application
+          path: my-application
+
+      # Runs a single command using the runners shell
+      - name: run gui mitarbeiter
+        shell: bash        
+        working-directory: ${{github.workspace}}/my-application
+        run: java src.klassen.GUI_Mitarbeiter
