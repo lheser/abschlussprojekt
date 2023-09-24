@@ -74,5 +74,5 @@ jobs:
       # Runs a single command using the runners shell
       - name: run gui mitarbeiter
         shell: bash        
-        working-directory: ${{github.workspace}}/my-application
-        run: java GUI_Mitarbeiter
+        working-directory: ${{github.workspace}}/my-application/my-application
+        run: java klassen.GUI_Mitarbeiter
