@@ -75,4 +75,4 @@ jobs:
       - name: run gui mitarbeiter
         shell: bash        
         working-directory: ${{github.workspace}}/my-application
-        run: java GUI_Mitarbeiter.class
+        run: java GUI_Mitarbeiter
