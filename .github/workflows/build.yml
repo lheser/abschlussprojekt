@@ -68,11 +68,11 @@ jobs:
       # test dir command
       - name: run dir
         shell: bash        
-        working-directory: ${{github.workspace}}
-        run: cat README.md
+        working-directory: ${{github.workspace}}/my-application
+        run: dir
 
       # Runs a single command using the runners shell
       - name: run gui mitarbeiter
         shell: bash        
         working-directory: ${{github.workspace}}/my-application
-        run: java klasse.GUI_Mitarbeiter
+        run: java klassen.GUI_Mitarbeiter
