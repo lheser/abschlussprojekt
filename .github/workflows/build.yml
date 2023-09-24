@@ -66,9 +66,9 @@ jobs:
           path: my-application
 
       # test dir command
-      - name: run gui mitarbeiter
+      - name: run dir
         shell: bash        
-        working-directory: ${{github.workspace}}/my-application
+        working-directory: ${{github.workspace}}
         run: dir
 
       # Runs a single command using the runners shell
