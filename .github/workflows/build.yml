@@ -69,7 +69,7 @@ jobs:
       - name: run dir
         shell: bash        
         working-directory: ${{github.workspace}}
-        run: dir
+        run: cat README.md
 
       # Runs a single command using the runners shell
       - name: run gui mitarbeiter
