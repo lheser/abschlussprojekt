@@ -68,7 +68,7 @@ jobs:
       # test dir command
       - name: run dir
         shell: bash        
-        working-directory: ${{github.workspace}}/my-application/my-application
+        working-directory: ${{github.workspace}}/my-application
         run: dir
 
       # Runs a single command using the runners shell
