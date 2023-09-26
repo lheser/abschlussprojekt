@@ -63,7 +63,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: my-application
-          path: my-application
+          path: my-application/klassen
 
       # test dir command
       - name: run dir
