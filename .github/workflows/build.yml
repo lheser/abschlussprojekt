@@ -88,4 +88,4 @@ jobs:
       - name: run gui mitarbeiter
         shell: bash        
         working-directory: ${{github.workspace}}/my-application
-        run: java --module-path "libs" --add-modules javafx.controls,javafx.fxml -cp "libs/derby.jar;libs/derbyshared.jar" klassen.GUI_Mitarbeiter
+        run: java --module-path "libs" --add-modules javafx.controls,javafx.fxml -cp "libs/derby.jar;libs/derbyshared.jar;." klassen.GUI_Mitarbeiter
