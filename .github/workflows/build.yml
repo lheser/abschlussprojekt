@@ -42,6 +42,12 @@ jobs:
         with:
           name: my-application
           path: ./builds/klassen/*.class
+
+      - name: Upload libs
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-libs
+          path: ./libs/*.jar
        #note to self: until here, all good. 
        
   run-app:
@@ -64,11 +70,18 @@ jobs:
         with:
           name: my-application
           path: my-application/klassen
-
+      
+      #download libs
+      - name: Download javafx and derby jars
+        uses: actions/download-artifact@v3
+        with:
+          name: my-libs
+          path: my-application/libs
+          
       # test dir command
       - name: run dir
         shell: bash        
-        working-directory: ${{github.workspace}}/my-application/klassen
+        working-directory: ${{github.workspace}}/my-application
         run: dir
 
       # Runs a single command using the runners shell
