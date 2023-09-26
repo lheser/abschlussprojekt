@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-libs
-          path: ./libs/*.jar
+          path: ./src/libs/*.jar
        #note to self: until here, all good. 
        
   run-app:
